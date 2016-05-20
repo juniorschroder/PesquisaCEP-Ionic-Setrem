@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title></title>
+
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+  <!-- ionic/angularjs js -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="cordova.js"></script>
+
+  <!-- your app's js -->
+  <script src="js/app.js"></script>
+
+  <script src="js/services/PesquisaService.js"></script>
+  <script src="js/controllers/PesquisaController.js"></script>
+
+</head>
+
+<body ng-app="PesquisaCEP">
+
+  <ion-pane>
+    <ion-header-bar class="bar-stable">
+      <h1 class="title">Pesquisa de CEP</h1>
+    </ion-header-bar>
+    <ion-content ng-controller="PesquisaController">
+      <div class="card" ng-hide="dados.cidade">
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Informe o CEP</span>
+          <input type="number" placeholder="Informe o CEP" maxlength="8" ng-model="formulario.cep">
+        </label>
+        <div class="item">
+          <button class="button button-block button-positive" ng-click="consultar()" ng-disabled="!formulario.cep">Consultar</button>
+        </div>
+      </div>
+
+      <div class="list card" ng-show="dados.cidade">
+        <div class="item item-divider">Resultado da Consulta</div>
+        <div class="item item-body">
+          <div>
+            <h3>Dados da Cidade</h3>
+          </div>
+          <div>
+            Cidade: <strong>{{dados.cidade}}</strong>
+          </div>
+          <div>
+            C&#xF3;d. IBGE: <strong>{{dados.cidade_info.codigo_ibge}}</strong>
+          </div>
+          <div>
+            &#xC1;rea KM&#xB2;: <strong>{{dados.cidade_info.area_km2}}</strong>
+          </div>
+          <div><br></div>
+          <div>
+            <h3>Dados do Estado</h3>
+          </div>
+          <div>
+            Estado: <strong>{{dados.estado_info.nome}}</strong>
+          </div>
+          <div>
+            Sigla: <strong>{{dados.estado}}</strong>
+          </div>
+          <div>
+            C&#xF3;d. IBGE: <strong>{{dados.estado_info.codigo_ibge}}</strong>
+          </div>
+          <div>
+            &#xC1;rea KM&#xB2;: <strong>{{dados.estado_info.area_km2}}</strong>
+          </div>
+        </div>
+        <div class="item">
+          <button class="button button-block button-positive" ng-click="novaConsulta()">Nova Consulta</button>
+        </div>
+      </div>
+    </ion-content>
+  </ion-pane>
+</body>
+
+</html>
